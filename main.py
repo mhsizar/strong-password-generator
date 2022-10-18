@@ -1,4 +1,3 @@
-#Password Generator Project
 import random
 
 letters = [
@@ -11,25 +10,64 @@ numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
 print("Welcome to the PyPassword Generator!")
-nr_letters = int(input("How many letters would you like in your password?\n"))
-nr_symbols = int(input(f"How many symbols would you like?\n"))
-nr_numbers = int(input(f"How many numbers would you like?\n"))
 
-pass_letters = random.choices(letters, k=nr_letters)
-pass_symbols = random.choices(symbols, k=nr_symbols)
-pass_numbers = random.choices(numbers, k=nr_numbers)
+repeat=True
+while repeat:
 
-password_list = []
+    int_value=True
+    while int_value:
+        try:
+            nr_letters = int(input("How many letters would you like in your password?\n"))
+            int_value=False
+        except:
+            print("Wrong Command! Please enter a number!")
+            int_value=True
+    int_value=True
+    while int_value:
+        try:
+            nr_symbols = int(input(f"How many symbols would you like?\n"))
+            int_value=False
+        except:
+            print("Wrong Command! Please enter a number!")
+            int_value=True
+    int_value=True
+    while int_value:
+        try:
+            nr_numbers = int(input(f"How many numbers would you like?\n"))
+            int_value=False
+        except:
+            print("Wrong Command! Please enter a number!")
+            int_value=True
+    
+    pass_letters = random.choices(letters, k=nr_letters)
+    pass_symbols = random.choices(symbols, k=nr_symbols)
+    pass_numbers = random.choices(numbers, k=nr_numbers)
 
-for l in pass_letters:
-    password_list += l
-for n in pass_numbers:
-    password_list += n
-for s in pass_symbols:
-    password_list += s
+    password_list = []
+    
+    for l in pass_letters:
+        password_list += l
+    for n in pass_numbers:
+        password_list += n
+    for s in pass_symbols:
+        password_list += s
+    
+    random.shuffle(password_list)
+    password = ""
+    for random_pass in password_list:
+        password += random_pass
+    print(f'Your password is: {password}')
 
-random.shuffle(password_list)
-password = ""
-for random_pass in password_list:
-    password += random_pass
-print(password)
+    run_again = input(
+        "\nDo you want to generate another password? Reply with 'yes' or 'no': \n"
+    ).lower()[0]
+    while run_again != "y" and run_again != "n":
+        print("Wrong input! Please reply with 'yes' or 'no'")
+        run_again = input(
+            "\nDo you want to generate another password? Reply with 'yes' or 'no': \n"
+        ).lower()[0]
+    if run_again == "y":
+        repeat = True
+    elif run_again == "n":
+        print("Goodbye!")
+        repeat = False
